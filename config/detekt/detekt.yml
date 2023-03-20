@@ -72,7 +72,7 @@ comments:
     matchDeclarationsOrder: true
     allowParamOnConstructorProperties: false
   UndocumentedPublicClass:
-    active: false # TODO requires dedicated task
+    active: true
     excludes: [ '**/test/**' ]
     searchInNestedClass: true
     searchInInnerClass: true
@@ -80,12 +80,14 @@ comments:
     searchInInnerInterface: true
     searchInProtectedClass: false
   UndocumentedPublicFunction:
-    active: false # TODO requires dedicated task
+    active: true
     excludes: [ '**/test/**' ]
     searchProtectedFunction: false
+    ignoreAnnotated:
+      - 'androidx.compose.runtime.Composable'
   UndocumentedPublicProperty:
-    active: false # TODO requires dedicated task
-    excludes: [ '**/test/**' ]
+    active: true
+    excludes: [ '**/test/**', '**/ui/theme/**' ]
     searchProtectedProperty: false
 
 complexity:
@@ -186,6 +188,7 @@ coroutines:
       - 'IO'
       - 'Default'
       - 'Unconfined'
+    excludes: [ '**/test/**' ]
   RedundantSuspendModifier:
     active: true
   SleepInsteadOfDelay:
@@ -305,7 +308,7 @@ naming:
   active: true
   BooleanPropertyNaming:
     active: true
-    allowedPattern: '^(is|has|are)'
+    allowedPattern: '^(is|has|are|should)'
     ignoreOverridden: true
   ClassNaming:
     active: true
@@ -463,7 +466,7 @@ potential-bugs:
   IteratorNotThrowingNoSuchElementException:
     active: true
   LateinitUsage:
-    active: false # TODO requires dedicated task
+    active: false
     excludes: [ '**/test/**' ]
     ignoreOnClassesPattern: ''
   MapGetWithNotNullAssertionOperator:
@@ -509,7 +512,7 @@ style:
     active: true
     includeElvis: true
   ClassOrdering:
-    active: false # TODO requires dedicated task
+    active: true
   CollapsibleIfStatements:
     active: true
   DataClassContainsFunctions:

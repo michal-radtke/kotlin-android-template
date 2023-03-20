@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id(Plugins.Java.library)
     kotlin(Plugins.Kotlin.jvm)
-    //https://kotlinlang.org/docs/dokka-get-started.html
+    // https://kotlinlang.org/docs/dokka-get-started.html
     id(Plugins.Dokka.plugin)
 }
 

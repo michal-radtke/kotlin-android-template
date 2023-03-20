@@ -2,10 +2,10 @@ name: Assemble App & Check
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - '*'
+      - master
 
 jobs:
   gradle:
@@ -24,5 +24,16 @@ jobs:
       - name: Setup Gradle (with cache)
         uses: gradle/gradle-build-action@v2
 
-      - name: Run Gradle
-        run: ./gradlew :app:assembleDebug
+      - name: Assemble
+        run: ./gradlew :assemble
+
+      - name: Check
+        run: ./gradlew check
+
+      - name: Kover
+        run: ./gradlew koverVerify
+
+      - name: Upload coverage report
+        uses: codecov/codecov-action@v2
+        with:
+          files: build/reports/kover/report.xml

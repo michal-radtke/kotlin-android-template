@@ -62,7 +62,7 @@ configure<KtlintExtension> {
 
 //https://detekt.dev/docs/gettingstarted/gradle/#kotlin-dsl-3
 detekt {
-    config = files("$rootDir/config/detekt.yml")
+    config = files("$rootDir/config/detekt/detekt.yml")
 }
 
 /**

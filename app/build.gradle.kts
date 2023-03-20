@@ -73,7 +73,7 @@ android {
 
     kotlinOptions {
         freeCompilerArgs = listOf(
-            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlin.RequiresOptIn"
         )
     }
 
