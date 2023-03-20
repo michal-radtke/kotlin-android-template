@@ -25,28 +25,28 @@ android {
     }
 
     signingConfigs {
-        create("release") {
-            storeFile = file("../release.jks")
-            storePassword = getEnvElseLocal("STORE_PASSWORD", project)
-            keyAlias = getEnvElseLocal("KEY_ALIAS", project)
-            keyPassword = getEnvElseLocal("KEY_PASSWORD", project)
-        }
+//        create("release") {
+//            storeFile = file("../release.jks")
+//            storePassword = getEnvElseLocal("STORE_PASSWORD", project)
+//            keyAlias = getEnvElseLocal("KEY_ALIAS", project)
+//            keyPassword = getEnvElseLocal("KEY_PASSWORD", project)
+//        }
     }
 
     buildTypes {
         debug {
             manifestPlaceholders["crashlyticsCollectionEnabled"] = false
         }
-        release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            signingConfig = signingConfigs.getByName("release")
-            manifestPlaceholders["crashlyticsCollectionEnabled"] = true
-        }
+//        release {
+//            isMinifyEnabled = true
+//            isShrinkResources = true
+//            proguardFiles(
+//                getDefaultProguardFile("proguard-android-optimize.txt"),
+//                "proguard-rules.pro"
+//            )
+//            signingConfig = signingConfigs.getByName("release")
+//            manifestPlaceholders["crashlyticsCollectionEnabled"] = true
+//        }
     }
 
     // Use this block to configure different flavors
@@ -73,7 +73,7 @@ android {
 
     kotlinOptions {
         freeCompilerArgs = listOf(
-            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlin.RequiresOptIn"
         )
     }
 
@@ -106,6 +106,15 @@ android {
 
 kover {
     engine.set(DefaultJacocoEngine)
+
+    filters {
+        classes {
+            excludes += listOf("*/BuildConfig")
+        }
+        annotations {
+            excludes += listOf("androidx.compose.runtime.Composable")
+        }
+    }
 }
 
 dependencies {

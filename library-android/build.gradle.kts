@@ -3,7 +3,7 @@ import kotlinx.kover.api.DefaultJacocoEngine
 plugins {
     kotlin(Plugins.Kotlin.android)
     id(Plugins.Android.library)
-    //https://kotlinlang.org/docs/dokka-get-started.html
+    // https://kotlinlang.org/docs/dokka-get-started.html
     id(Plugins.Dokka.plugin)
 }
 
