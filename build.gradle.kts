@@ -44,6 +44,32 @@ subprojects {
     apply(plugin = Plugins.KtLint.plugin)
     apply(plugin = Plugins.Detekt.plugin)
     apply(plugin = Plugins.Kover.plugin)
+
+    tasks {
+        // https://github.com/ben-manes/gradle-versions-plugin
+        withType<DependencyUpdatesTask>().configureEach {
+            // check only stable versions of dependencies
+            rejectVersionIf {
+                candidate.version.isStableVersion().not()
+            }
+        }
+
+        withType<Test>().configureEach {
+            // Runs multiple unit test cases in parallel
+            // https://docs.gradle.org/current/userguide/performance.html#execute_tests_in_parallel
+            maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
+
+            // Runs every 100 unit test cases on a new test VM
+            // https://docs.gradle.org/current/userguide/performance.html#fork_tests_into_multiple_processes
+            setForkEvery(100)
+
+            // JUnit5 config
+            useJUnitPlatform()
+            testLogging {
+                events("passed", "skipped", "failed")
+            }
+        }
+    }
 }
 
 //https://github.com/JLLeitschuh/ktlint-gradle
@@ -82,31 +108,14 @@ koverMerged {
         }
     }
     verify {
+        // set to true to run koverMergedVerify task during the execution of the check task
+        onCheck.set(true)
+
         rule {
             name = "Minimum code coverage level"
             bound {
                 minValue = 0
             }
         }
-    }
-}
-
-tasks {
-    //https://github.com/ben-manes/gradle-versions-plugin
-    withType<DependencyUpdatesTask>().configureEach {
-        // check only stable versions of dependencies
-        rejectVersionIf {
-            candidate.version.isStableVersion().not()
-        }
-    }
-    //Runs multiple unit test cases in parallel
-    //https://docs.gradle.org/current/userguide/performance.html#execute_tests_in_parallel
-    withType<Test>().configureEach {
-        maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).takeIf { it > 0 } ?: 1
-    }
-    //Runs every 100 unit test cases on a new test VM
-    //https://docs.gradle.org/current/userguide/performance.html#fork_tests_into_multiple_processes
-    withType<Test>().configureEach {
-        setForkEvery(100)
     }
 }

@@ -25,15 +25,15 @@ jobs:
         uses: gradle/gradle-build-action@v2
 
       - name: Assemble
-        run: ./gradlew :assemble
+        run: ./gradlew :assembleRelease
 
       - name: Check
         run: ./gradlew check
 
-      - name: Kover
-        run: ./gradlew koverVerify
+#      - name: Kover
+#        run: ./gradlew koverMergedVerify
 
-      - name: Upload coverage report
-        uses: codecov/codecov-action@v2
-        with:
-          files: build/reports/kover/report.xml
+#      - name: Upload coverage report
+#        uses: codecov/codecov-action@v2
+#        with:
+#          files: build/reports/kover/report.xml

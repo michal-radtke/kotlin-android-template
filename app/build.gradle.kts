@@ -106,6 +106,15 @@ android {
 
 kover {
     engine.set(DefaultJacocoEngine)
+
+    filters {
+        classes {
+            excludes += listOf("*/BuildConfig")
+        }
+        annotations {
+            excludes += listOf("androidx.compose.runtime.Composable")
+        }
+    }
 }
 
 dependencies {
